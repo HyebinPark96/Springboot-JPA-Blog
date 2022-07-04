@@ -9,7 +9,7 @@
 		<div class="card m-2">
 			<div class="card-body">
 				<h4 class="card-title">${board.title}</h4> <!-- @Data 어노테이션이 있으므로 board.getTitle() 호출한 것 -->
-				<a href="#" class="btn btn-primary">상세보기</a>
+				<a href="/board/${board.id}" class="btn btn-primary">상세보기</a>
 			</div>
 		</div>
 	</c:forEach>

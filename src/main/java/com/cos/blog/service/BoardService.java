@@ -28,4 +28,11 @@ public class BoardService {
 		return boardRepository.findAll(pageable); // 페이징되어 호출
 	}
 
+	public Board 글상세보기(int id) {
+		return boardRepository.findById(id) // findById : Optinal 형식이므로 null값일 경우 예외처리 해줘야 하므로 .orElseThrow() 사용
+				.orElseThrow(()->{
+					return new IllegalArgumentException("글 상세보기 실패 : 아이디를 찾을 수 없습니다.");
+				});	
+	}
+	
 }
