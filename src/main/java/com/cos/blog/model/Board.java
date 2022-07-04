@@ -39,7 +39,6 @@ public class Board {
 	@Lob // 대용량 데이터 쓸 때 사용 (MySQL : longtext형)
 	private String content; // 섬머노트 라이브러리 <html> 태그가 섞여서 디자인 된다. => 크기 커진다.
 	
-	@ColumnDefault("0") // int 이므로  홑 따옴표 필요없음
 	private int count; // 조회수 
 	
 	// mappedBy = "board" : board는 Reply테이블의 필드 이름 

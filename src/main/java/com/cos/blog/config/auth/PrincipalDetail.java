@@ -8,8 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.cos.blog.model.User;
 
+import lombok.Getter;
+
 // 스프링 시큐리티가 로그인 요청을 가로채서 로그인을 진행하고 완료되면
 // UserDetails 타입의 오브젝트를 스프링 시큐리티의 고유한 세션 저장소에 저장해줌
+@Getter // 게시판 글쓰기에 필요한 User 컴포지션을 꺼내기 위한 어노테이션 
 public class PrincipalDetail implements UserDetails{ // UserDetails 인터페이스의 추상메소드 오버라이딩 필요
 	
 	private User user; // composition : extends 단점을 보완하기 위해 composition 사용
