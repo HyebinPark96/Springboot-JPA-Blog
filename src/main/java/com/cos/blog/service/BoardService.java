@@ -24,10 +24,12 @@ public class BoardService {
 		boardRepository.save(board);
 	}
 	
+	@Transactional(readOnly = true) // SELECT 이므로 readOnly = true 설정
 	public Page<Board> 글목록(Pageable pageable){
 		return boardRepository.findAll(pageable); // 페이징되어 호출
 	}
-
+	
+	@Transactional(readOnly = true)
 	public Board 글상세보기(int id) {
 		return boardRepository.findById(id) // findById : Optinal 형식이므로 null값일 경우 예외처리 해줘야 하므로 .orElseThrow() 사용
 				.orElseThrow(()->{
@@ -35,4 +37,20 @@ public class BoardService {
 				});	
 	}
 	
+	@Transactional
+	public void 글삭제하기(int id) {
+		boardRepository.deleteById(id); //  deleteById: JPA 제공
+	}
+	
+	@Transactional
+	public void 글수정하기(int id, Board requestBoard) {
+		// 수정하기 위해 영속화 해줘야 함
+		Board board = boardRepository.findById(id)
+				.orElseThrow(()->{
+					return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
+				});	 // 영속화 완료
+		board.setTitle(requestBoard.getTitle());
+		board.setContent(requestBoard.getContent());
+		// 해당 함수 종료시(=Service가 종료될 때) 트랜잭션이 종료. 이 때 더티체킹이 일어나며 자동 업데이트가 됨 (=DB flush)
+	}
 }

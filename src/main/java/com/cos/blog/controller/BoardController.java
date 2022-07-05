@@ -13,7 +13,7 @@ import com.cos.blog.service.BoardService;
 
 // @AuthenticationPrincipal PrincipalDetail principal
 @Controller
-public class BoardController { // 컨트롤러에서 세션을 어떻게 찾는지?
+public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
@@ -29,6 +29,13 @@ public class BoardController { // 컨트롤러에서 세션을 어떻게 찾는�
 	public String findById(@PathVariable int id, Model model) { // @PathVariable : url 변수의 값이 매개변수의 인자로 들어오는 기능 (같은 이름이어야 한다.)
 		model.addAttribute("board", boardService.글상세보기(id));
 		return "board/detail";
+	}
+	
+	@GetMapping("/board/{id}/updateForm")
+	public String updateForm(@PathVariable int id, Model model) {
+		// model  : 해당 데이터를 가지고 return 되는 view까지 이동함
+		model.addAttribute("board", boardService.글상세보기(id));
+		return "board/updateForm";
 	}
 	
 	// USER 권한이 필요
