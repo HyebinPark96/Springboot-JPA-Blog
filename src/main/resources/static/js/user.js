@@ -3,6 +3,10 @@ let index = {
 		$("#btn-save").on("click", ()=>{ // function(){}가 아닌 ()=>{}를 쓰는 이유 : this를 바인딩하기 위해서!! 
 			this.save(); // function(){}을 썼다면 this는 window를 가르킨다. 
 		}); // on("1","2") : 파라미터 1번 이벤트 발생시 파라미터 2번을 수행하라
+	
+		$("#btn-update").on("click", ()=>{ // function(){}가 아닌 ()=>{}를 쓰는 이유 : this를 바인딩하기 위해서!! 
+			this.update(); // function(){}을 썼다면 this는 window를 가르킨다. 
+		}); // on("1","2") : 파라미터 1번 이벤트 발생시 파라미터 2번을 수행하라
 	},
 	
 	save: function(){
@@ -34,6 +38,29 @@ let index = {
 		}); 
 	}, 
 
+		update: function(){
+		let data = {
+			// 어떤 회원을 수정할 지 모르므로 hidden 값을 줌
+			id: $("#id").val(),
+			password: $("#password").val(),
+			email: $("#email").val()
+		};
+		
+		$.ajax({
+			type: "PUT", // 수정 => PUT
+			url: "/user",
+			data: JSON.stringify(data), 
+			contentType: "application/json; charset=utf-8", 
+			dataType: "json"
+		}).done(function(resp){
+			// 성공한 경우 호출
+			alert("회원수정이 완료되었습니다.");
+			location.href="/";
+		}).fail(function(error){
+			// 실패한 경우 호출
+			alert(JSON.stringify(error));
+		}); 
+	}, 
 }
 
 index.init();
