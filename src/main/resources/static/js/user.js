@@ -42,6 +42,7 @@ let index = {
 		let data = {
 			// 어떤 회원을 수정할 지 모르므로 hidden 값을 줌
 			id: $("#id").val(),
+			username: $("#username").val(),
 			password: $("#password").val(),
 			email: $("#email").val()
 		};
